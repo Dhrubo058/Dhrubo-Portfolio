@@ -22,7 +22,7 @@ Keep responses under 3 sentences unless asked for detail.
 export async function askAssistant(prompt: string) {
   try {
     // Safety check for environment variables
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    const apiKey = AIzaSyBKoaIMEn2lzsO7fKVxC29nhVWjbJPdPSA;
     
     if (!apiKey) {
       console.warn("Gemini API Key is missing. Assistant is running in offline/demo mode.");
