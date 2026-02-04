@@ -21,13 +21,12 @@ Keep responses under 3 sentences unless asked for detail.
 
 export async function askAssistant(prompt: string) {
   try {
-    // Initialize inside the function to avoid top-level ReferenceErrors for process.env
-    // and to ensure we use the most up-to-date environment variables.
-    const apiKey = typeof process !== 'undefined' ? process.env.API_KEY : '';
+    // Safety check for environment variables
+    const apiKey = (window as any).process?.env?.API_KEY || "";
     
     if (!apiKey) {
-      console.warn("Gemini API Key is missing. Assistant will be unavailable.");
-      return "I'm currently in 'offline mode' because the API key hasn't been configured yet. You can still browse Porag's projects manually!";
+      console.warn("Gemini API Key is missing. Assistant is running in offline/demo mode.");
+      return "Hi! I'm currently in 'demo mode' because the API key isn't set up on the server. However, you can explore Porag's skills and projects manually on this page!";
     }
 
     const ai = new GoogleGenAI({ apiKey });
@@ -45,6 +44,6 @@ export async function askAssistant(prompt: string) {
     return response.text || "I'm sorry, I couldn't process that request right now.";
   } catch (error) {
     console.error("Gemini API Error:", error);
-    return "The assistant is currently having some trouble connecting. Please try again later or reach out to Porag directly.";
+    return "I'm having trouble connecting to my brain right now! Please try asking again in a moment, or check out Porag's contact info below.";
   }
 }
